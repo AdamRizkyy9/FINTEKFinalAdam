@@ -133,6 +133,14 @@ Route::get("topup", function () {
     ]);
 })->name("topup");
 
+Route::get("tariktunai", function () {
+    $saldo = Saldo::where("user_id", Auth::user()->id)->first();
+
+    return view("tariktunai", [
+        "saldo" => $saldo
+    ]);
+})->name("tariktunai");
+
 Route::get("topup/setuju/{transaksi_id}", function ($transaksi_id) {
     $transaksi = Transaksi::find($transaksi_id);
 
@@ -147,7 +155,7 @@ Route::get("topup/setuju/{transaksi_id}", function ($transaksi_id) {
     ]);
 
     return redirect()->back()->with("status", "Topup disetujui");
-})->name("topup.setuju");
+    })->name("topup.setuju");
 
 Route::get("topup/tolak/{transaksi_id}", function ($transaksi_id) {
     $transaksi = Transaksi::find($transaksi_id);
@@ -156,6 +164,30 @@ Route::get("topup/tolak/{transaksi_id}", function ($transaksi_id) {
 
     return redirect()->back()->with("status", "Topup ditolak");
 })->name("topup.tolak");
+
+Route::get("tariktunai/setuju/{transaksi_id}", function ($transaksi_id) {
+    $transaksi = Transaksi::find($transaksi_id);
+
+    $saldo = Saldo::where("user_id", $transaksi->user_id)->first();
+
+    Saldo::where("user_id", $transaksi->user_id)->update([
+        "saldo" => $saldo->saldo - $transaksi->jumlah
+    ]);
+
+    $transaksi->update([
+        "status" => 3
+    ]);
+
+    return redirect()->back()->with("status", "Tariktunai disetujui");
+})->name("tariktunai.setuju");
+
+Route::get("tariktunai/tolak/{transaksi_id}", function ($transaksi_id) {
+    $transaksi = Transaksi::find($transaksi_id);
+
+    $transaksi->delete();
+
+    return redirect()->back()->with("status", "Tariktunai ditolak");
+})->name("tariktunai.tolak");
 
 Route::get("jajan/setuju/{invoice_id}", function ($invoice_id) {
     $transaksis = Transaksi::where("invoice_id", $invoice_id);
@@ -272,6 +304,8 @@ Route::prefix('transaksi')->group(function () {
         ]);
     })->name("transaksi");
 
+
+
     Route::get('/add', function () {
         // Matches The "/admin/users" URL
     });
@@ -292,17 +326,23 @@ Route::prefix('transaksi')->group(function () {
         }
     })->name("transaksi.create");
 
-    Route::get('/edit/{id}', function () {
-        // Matches The "/admin/users" URL
-    });
+    Route::post('/tariktunai', function (Request $request) {
+        if ($request->type == 1) {
+            $invoice_id = "SAL_" . Auth::user()->id . now()->timestamp;
 
-    Route::put('/update/{id}', function () {
-        // Matches The "/admin/users" URL
-    });
+            Transaksi::create([
+                "user_id" => Auth::user()->id,
+                "jumlah" => $request->jumlah,
+                "invoice_id" => $invoice_id,
+                "type" => $request->type,
+                "status" => 2
+            ]);
 
-    Route::get('/delete/{id}', function () {
-        // Matches The "/admin/users" URL
-    });
+            return redirect()->back()->with("status", "Tarik Tunai Sedang Diproses");
+        }
+    })->name("transaksi.tariktunai");
+
+
 });
 
 
@@ -321,52 +361,23 @@ Route::prefix('data_transaksi')->group(function () {
         ]);
     })->name("data_transaksi");
 
-    Route::post("/add", function (Request $request) {
-        $user = User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "role_id" => $request->role_id
+});
+Route::prefix('transaksi_bank')->group(function () {
+    Route::get("/", function () {
+
+        $details = Transaksi::where("type", 1)
+            ->get();
+        $details = Saldo::all();
+
+        $transaksis = Transaksi::where('type', 1)
+            ->groupBy('invoice_id')
+            ->get();
+
+        return view("transaksi_bank", [
+            "transaksis" => $transaksis,
+            "details" => $details,
+
         ]);
+    }) ->name("transaksi_bank");
 
-        if ($user->role_id == 4) {
-            Saldo::create([
-                "user_id" => $user->id,
-                "saldo" => 0
-            ]);
-        }
-
-        return redirect()->back()->with("status", "Berhasil Menambahkan User");
-    })->name("data_transaksi.add");
-
-    Route::put("/edit/{id}", function (Request $request, $id) {
-        if ($request->password == null) {
-            User::find($id)->update([
-                "name" => $request->name,
-                "email" => $request->email,
-                "role_id" => $request->role_id
-            ]);
-
-            return redirect()->back()->with("status", "Berhasil Mengedit User");
-        }
-
-        User::find($id)->update([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "role_id" => $request->role_id
-        ]);
-
-        return redirect()->back()->with("status", "Berhasil Mengedit User");
-    })->name("data_transaksi.edit");
-
-    Route::get("/delete/{id}", function ($id) {
-        $user = User::find($id);
-
-        Saldo::where("user_id", $user->id)->delete();
-
-        $user->delete();
-
-        return redirect()->back()->with("status", "Berhasil Menghapus User & Saldo");
-    })->name("data_transaksi.delete");
 });

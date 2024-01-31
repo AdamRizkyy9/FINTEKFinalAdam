@@ -14,8 +14,8 @@ $page = 'Jajan';
         <div class="row mb-3">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body" style="background-color: #8DA0F5">
-                        <h5>Saldo: {{ $saldo->saldo }}</h5>
+                    <div class="card-body" style="background-color: #10d1f3">
+                        <h5>Saldo Anda: Rp {{ number_format($saldo->saldo, 0, ',', '.') }}</h5>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@ $page = 'Jajan';
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header" style="background-color: #64B9F0; font-weight: bold; color: white">Menu</div>
+                    <div class="card-header" style="background-color: #1e4ee0; font-weight: bold; color: white">Menu</div>
                     <div class="card-body">
                         <div class="row">
                             @foreach ($barangs as $barang)
@@ -47,7 +47,7 @@ $page = 'Jajan';
                                             @csrf
                                             <input type="number" name="jumlah" class="form-control" value="1">
                                             <input type="hidden" name="barang_id" value="{{ $barang->id }}">
-                                            <button class="btn btn-primary mt-2" type="submit">Tambah Ke Keranjang</button>
+                                            <button class="btn btn-primary mt-2" type="submit">Masukkan Ke Keranjang</button>
                                         </form>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Fintech</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,46 +19,95 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .navbar {
+            background-color: #306ff8f8;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: rgb(4, 35, 14);
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .dropdown-menu {
+            background-color: #17515ff8;
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: white;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #ffc107;
+            color: black;
+        }
+        @media print {
+  .print-button {
+      display: none;
+  }
+}
+
+@media print {
+  .modal-footer .btn-secondary {
+      display: none;
+  }
+}
+
+    </style>
+
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm" style="background-color: #101C51">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}" style="font-weight: bold; color: white">
-                    S-Wallet
+                <img src="{{ asset('assets/images/logo.png')}}" alt="" width="40" height="30">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                   AdamFinTech
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
-                            @if (Auth::user()->role_id === 1)
-                                <li class="nav-item">
-                                    <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
-                                        href="{{ route('home') }}">Home</a>
-                                </li>
-                            @endif
-                            @if (Auth::user()->role_id === 4)
-                                <li class="nav-item">
-                                    <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
-                                        href="{{ route('home') }}">Home</a>
-                                </li>
-                            @endif
+
                             @if (Auth::user()->role_id === 3)
                                 <li class="nav-item">
                                     <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('home') }}">Home</a>
                                 </li>
+                            @endif
+                            @if (Auth::user()->role_id === 2)
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $page == 'Menu' ? 'active' : '' }}"
+                                    <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
+                                        href="{{ route('home')}}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $page == 'Menu' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('menu') }}">Menu</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $page == 'Data Transaksi' ? 'active' : '' }}" aria-current="page"
+                                        href="{{ route('data_transaksi') }}">Data Transaksi</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->role_id === 1)
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
+                                        href="{{ route('home') }}">Home</a>
+                                </li>
+
                             @endif
                         @endauth
                     </ul>
@@ -68,24 +117,18 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown" style="color: white">
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} ({{ Auth::user()->role->name }})
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                          document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -103,7 +146,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-5">
             @yield('content')
         </main>
     </div>

@@ -87,8 +87,8 @@ $page = 'Data User';
                                                             <option value="">Select Role</option>
                                                             <option value="1">Administrator</option>
                                                             <option value="2">Bank</option>
-                                                            <option value="3">Canteen</option>
-                                                            <option value="4">Student</option>
+                                                            <option value="3">Kantin</option>
+                                                            <option value="4">Siswa</option>
                                                         </select>
 
                                                         @error('role_id')
