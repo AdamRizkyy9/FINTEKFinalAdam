@@ -122,5 +122,38 @@
             @endforelse
         </div>
 
-
     @endsection
+
+    <style>
+        <style>
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.25rem;
+    }
+
+    .badge.bg-warning {
+        background-color: #ffc107;
+    }
+
+    .badge.bg-info {
+        background-color: #17a2b8;
+    }
+
+    .badge.bg-success {
+        background-color: #28a745;
+    }
+
+    .badge.bg-secondary {
+        background-color: #6c757d;
+    }
+</style>
+

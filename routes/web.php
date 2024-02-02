@@ -227,19 +227,29 @@ Route::get("jajan/tolak/{invoice_id}", function ($invoice_id) {
     return redirect()->back()->with("status", "Jajan ditolak");
 })->name("jajan.tolak");
 
-Route::post("addToCart/{id}", function (Request $request) {
-    Transaksi::create([
-        "user_id" => Auth::user()->id,
-        "barang_id" => $request->barang_id,
-        "status" => 1,
-        "jumlah" => $request->jumlah,
-        "type" => 2
-    ]);
+Route::post("addToCart/{id}", function (Request $request, $id) {
+    $barang = Barang::find($id);
 
-    return redirect()->back()->with("status", "Berhasil menambahkan barang ke keranjang");
-})->name("addToCart");
+    // Check if there is enough stock
+    if ($barang->stock >= $request->jumlah) {
+        Transaksi::create([
+            "user_id" => Auth::user()->id,
+            "barang_id" => $request->barang_id,
+            "status" => 1,
+            "jumlah" => $request->jumlah,
+            "type" => 2
+        ]);
 
-Route::get("checkout", function () {
+        // Kurangi stok barang
+        $barang->update([
+            "stock" => $barang->stock - $request->jumlah
+        ]);
+
+        return redirect()->back()->with("status", "Berhasil menambahkan barang ke keranjang");
+    } else {
+        return redirect()->back()->with("status", "Stok tidak mencukupi");
+    }
+})->name("addToCart");Route::get("checkout", function () {
     $invoice_id = "INV_" . Auth::user()->id . now()->timestamp;
 
     Transaksi::where("user_id", Auth::user()->id)->where("type", 2)->where("status", 1)->update([
@@ -328,7 +338,7 @@ Route::prefix('transaksi')->group(function () {
 
     Route::post('/tariktunai', function (Request $request) {
         if ($request->type == 1) {
-            $invoice_id = "SAL_" . Auth::user()->id . now()->timestamp;
+            $invoice_id = "TRK_" . Auth::user()->id . now()->timestamp;
 
             Transaksi::create([
                 "user_id" => Auth::user()->id,

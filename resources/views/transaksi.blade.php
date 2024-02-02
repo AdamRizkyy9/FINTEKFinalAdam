@@ -15,7 +15,7 @@ $page = 'Jajan';
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body" style="background-color: #10d1f3">
-                        <h5>Saldo Anda: Rp {{ number_format($saldo->saldo, 0, ',', '.') }}</h5>
+                        <h5>SALDO: Rp {{ number_format($saldo->saldo, 0, ',', '.') }}</h5>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ $page = 'Jajan';
                                             @csrf
                                             <input type="number" name="jumlah" class="form-control" value="1">
                                             <input type="hidden" name="barang_id" value="{{ $barang->id }}">
-                                            <button class="btn btn-primary mt-2" type="submit">Masukkan Ke Keranjang</button>
+                                            <button class="btn btn-primary mt-2" type="submit">Add to Cart</button>
                                         </form>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@ $page = 'Jajan';
         </div>
         <br/>
             <div class="card">
-                <div class="card-header" style="background-color: #64B9F0; font-weight: bold; color: white">keranjang {{ count($carts) > 0 ? '#' . $carts[0]->invoice_id : '' }}</div>
+                <div class="card-header" style="background-color: #64B9F0; font-weight: bold; color: white">Chekcout {{ count($carts) > 0 ? '#' . $carts[0]->invoice_id : '' }}</div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" >
                         <thead>
@@ -97,7 +97,7 @@ $page = 'Jajan';
         <br/>
             <div class="container">
                 <div class="card">
-                    <div class="card-header" style="background-color: #64B9F0; font-weight: bold; color: white">Checkout {{ count($carts) > 0 ? '#' . $carts[0]->invoice_id : '' }}</div>
+                    <div class="card-header" style="background-color: #64B9F0; font-weight: bold; color: white">Buy {{ count($carts) > 0 ? '#' . $carts[0]->invoice_id : '' }}</div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -128,7 +128,7 @@ $page = 'Jajan';
                         </table>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ route('bayar') }}" class="btn btn-primary">Beli</a>
+                        <a href="{{ route('bayar') }}" class="btn btn-primary">Buy</a>
                     </div>
                 </div>
             </div>

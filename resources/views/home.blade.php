@@ -1,4 +1,4 @@
-@extends('layouts.app')
+    @extends('layouts.app')
 
 <?php
 $page = 'Home';
@@ -32,7 +32,7 @@ $page = 'Home';
 
                                 <div class="col-md-4">
                                     <div class="card bg-success text-white text-center p-3">
-                                        <h5 class="font-weight-bold">Kantin 64</h5>
+                                        <h5 class="font-weight-bold">Canteen 64</h5>
                                         <p>Bayar Jajan lewat online aja jadi gak ribet! tidak perlu pakai antri lagi buat
                                             bayar.</p>
                                         <a href="{{ route('transaksi') }}" class="btn btn-dark btn-sm">Explore</a>
@@ -41,7 +41,7 @@ $page = 'Home';
 
                                 <div class="col-md-4">
                                     <div class="card bg-info text-dark text-center p-3">
-                                        <h5 class="font-weight-bold">Tarik Tunai </h5>
+                                        <h5 class="font-weight-bold">Withdraw</h5>
                                         <p>Ambil uang anda disini. Tidak perlu ribet ke ATM !</p>
                                         <a href="{{ route('tariktunai') }}" class="btn btn-dark btn-sm">Withdraw Now</a>
                                     </div>
@@ -50,9 +50,9 @@ $page = 'Home';
                         @if (Auth::user()->role_id === 1)
                     </div>
                     <div class="card col"
-                        style="width: 100px; height: 100px; align-items:center; justify-content:center; margin:5px; background-color: #95B3ED">
+                        style="width: 100px; height: 100px; align-items:center; justify-content:center; margin:5px; background-color: #0e3991">
                         <a href="{{ route('transaksi_bank') }}"
-                            style="color: white;text-decoration:none;font-size:18px">Transaksi</a>
+                            style="color: white;text-decoration:none;font-size:18px">Transaction</a>
                     </div>
                     @endif
                     @if (Auth::user()->role_id === 3)

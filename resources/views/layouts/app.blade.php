@@ -21,22 +21,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
-        .navbar {
-            background-color: #306ff8f8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
 
         .navbar-brand {
-            font-weight: bold;
             color: rgb(4, 35, 14);
         }
 
         .navbar-nav .nav-item .nav-link {
-            color: white;
+            color: black;
         }
-
         .navbar-nav .nav-item .nav-link:hover {
-            color: #ffc107;
+            color: #112ae6;
         }
 
         .dropdown-menu {
@@ -72,11 +66,9 @@
         <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
                 <img src="{{ asset('assets/images/logo.png')}}" alt="" width="40" height="30">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                   AdamFinTech
+                <a class="navbar-brand">
+                AdamFinTech
                 </a>
-
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
@@ -99,7 +91,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ $page == 'Data Transaksi' ? 'active' : '' }}" aria-current="page"
-                                        href="{{ route('data_transaksi') }}">Data Transaksi</a>
+                                        href="{{ route('data_transaksi') }}">Transaction Dashboard</a>
                                 </li>
                             @endif
                             @if (Auth::user()->role_id === 1)
@@ -107,7 +99,6 @@
                                     <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('home') }}">Home</a>
                                 </li>
-
                             @endif
                         @endauth
                     </ul>

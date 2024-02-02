@@ -11,8 +11,8 @@
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
   --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
+  --bs-orange: #3a2819;
+  --bs-yellow: #121fde;
   --bs-green: #198754;
   --bs-teal: #20c997;
   --bs-cyan: #13df46;
@@ -32,7 +32,7 @@
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
+  --bs-warning: #4618d0;
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
@@ -233,9 +233,7 @@ a {
   color: #16c458;
   text-decoration: underline;
 }
-a:hover {
-  color: #a0ca0a;
-}
+
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -4044,10 +4042,11 @@ textarea.form-control-lg {
   justify-content: space-between;
 }
 .navbar-brand {
+  font-weight: bold;
   padding-top: 0.32rem;
-  padding-bottom: 0.32rem;
+  padding-bottom: 0.30rem;
   margin-right: 1rem;
-  font-size: 1.125rem;
+  font-size: 1.2rem;
   text-decoration: none;
   white-space: nowrap;
 }

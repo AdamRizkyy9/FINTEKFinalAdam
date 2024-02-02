@@ -18,13 +18,13 @@ $page = 'Top Up';
                             </div>
                         @endif
 
-                        <h3>Saldo Anda: Rp {{ number_format($saldo->saldo, 0, ',', '.') }}</h3>
+                        <h3>SALDO   : Rp {{ number_format($saldo->saldo, 0, ',', '.') }}</h3>
 
                         <div class="card border-0 shadow-lg p-4">
                             <form method="POST" action="{{ route('transaksi.create') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="jumlah">Masukkan Jumlah:</label>
+                                    <label for="jumlah">Amount:</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp.</span>

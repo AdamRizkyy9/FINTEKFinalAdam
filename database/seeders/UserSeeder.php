@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $bank = Role::create(["name" => "Bank"]);
-        $canteen = Role::create(["name" => "Canteen"]);
+        $canteen     = Role::create(["name" => "Canteen"]);
         $student = Role::create(["name" => "Student"]);
 
 
