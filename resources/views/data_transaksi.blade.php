@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 <?php
-$page = ' Data Transaksi';
+$page = 'Transaksi Bank';
 ?>
-
 @section('content')
     <div class="container mt-4">
         @if (session('status'))
@@ -14,77 +13,114 @@ $page = ' Data Transaksi';
 
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center mb-4">Riwayat Transaksi</h2>
+                <h2 class="text-center mb-4">Transaksi</h2>
             </div>
         </div>
 
-        @forelse ($transaksis as $key => $transaksi)
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <div class="card shadow-lg border-primary mb-4">
+        <div class="row">
+            @foreach ($transaksis as $key => $transaksi)
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="border: none; box-shadow: 5px 3px 10px 10px rgba(0, 0, 255, 0.1);">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $transaksi->user->name }}</h5>
-                            <p class="card-text">
+                            <h5 class="card-title text-center">{{ $transaksi->user->name }}</h5>
+                            <p class="card-text text-center">
                                 <strong>Invoice ID:</strong> {{ $transaksi->invoice_id }}<br>
-                                <strong>Status:</strong>
-                                @switch($transaksi->status)
-                                    @case(1)
-                                        <span class="badge bg-warning text-dark">ON CART</span>
-                                        @break
-                                    @case(2)
-                                        <span class="badge bg-info text-dark">PENDING</span>
-                                        @break
-                                    @case(3)
-                                        <span class="badge bg-success">COMPLETED</span>
-                                        @break
-                                    @case(4)
-                                        <span class="badge bg-secondary">FINISHED</span>
-                                        @break
-                                    @default
-                                @endswitch
+                                <strong>Status:</strong><br>
+                                <span class="badge
+                                    @switch($transaksi->status)
+                                        @case(1)
+                                            bg-warning text-dark
+                                            @break
+                                        @case(2)
+                                            bg-info text-dark
+                                            @break
+                                        @case(3)
+                                            bg-secondary text-white
+                                            @break
+                                        @case(4)
+                                            bg-success text-white
+                                            @break
+                                        @default
+                                    @endswitch">
+                                    @switch($transaksi->status)
+                                        @case(1)
+                                            ON CART
+                                            @break
+                                        @case(2)
+                                            PENDING
+                                            @break
+                                        @case(3)
+                                          PENDING
+                                            @break
+                                        @case(4)
+                                            FINISHED
+                                            @break
+                                        @default
+                                    @endswitch
+                                </span>
                             </p>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#detail-{{ $transaksi->invoice_id }}">View Details</a>
+                            <div class="text-center mt-4">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#detail-{{ $transaksi->invoice_id }}">Lihat Detail</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="detail-{{ $transaksi->invoice_id }}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Details for Invoice #{{ $transaksi->invoice_id }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>User:</strong> {{ $transaksi->user->name }}</p>
-                            <p><strong>Status:</strong>
-                                @switch($transaksi->status)
-                                    @case(1)
-                                        ON CART
-                                        @break
-                                    @case(2)
-                                        PENDING
-                                        @break
-                                    @case(3)
-                                        COMPLETED
-                                        @break
-                                    @case(4)
-                                        FINISHED
-                                        @break
-                                    @default
-                                @endswitch
-                            </p>
+                <div class="modal fade" id="detail-{{ $transaksi->invoice_id }}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Detail Transaksi #{{ $transaksi->invoice_id }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Nama Pengguna:</strong> {{ $transaksi->user->name }}</p>
+                                <p><strong>Status:</strong><br>
+                                    <span class="badge
+                                        @switch($transaksi->status)
+                                            @case(1)
+                                                bg-warning text-dark
+                                                @break
+                                            @case(2)
+                                                bg-info text-dark
+                                                @break
+                                            @case(3)
+                                                bg-success text-white
+                                                @break
+                                            @case(4)
+                                                bg-secondary text-white
+                                                @break
+                                            @default
+                                        @endswitch">
+                                        @switch($transaksi->status)
+                                            @case(1)
+                                                ON CART
+                                                @break
+                                            @case(2)
+                                                PENDING
+                                                @break
+                                            @case(3)
+                                                FINISHED
+                                                @break
+                                            @case(4)
+                                                FAILED
+                                                @break
+                                            @default
+                                        @endswitch
+
+                                    <p><strong>Date:</strong> {{ $transaksi->created_at->format('d/m/Y H:i:s') }}</p>
+
+                                    </span>
+                                </p>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Order Name</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
+                                        <th>Jumlah</th>
+                                        <th>Jenis</th>
+                                        <th>Saldo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,62 +132,22 @@ $page = ' Data Transaksi';
                                                 <td>{{ $detail->barang->name }}</td>
                                                 <td>{{ $detail->jumlah }}</td>
                                                 <td>{{ $detail->barang->price }}</td>
-                                                <td>{{ $detail->jumlah * $detail->barang->price }}</td>
+                                                <td>{{ $detail->jumlah * $detail->barang->price }}
+                                                </td>
                                             </tr>
                                         @endif
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p><strong>Total:</strong> {{ $total_harga }}</p>
+                            Total : {{ $total_harga }}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Tutup</button>
                         </div>
-                        <div class="modal-footer">
-                                <button type="button" class="btn btn-primary print-button" onclick="window.print()">
-                                    PRINT
-                                </button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        @empty
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <p class="text-center">Tidak ada transaksi</p>
-                </div>
-            </div>
-        @endforelse
+            @endforeach
+        </div>
     </div>
 @endsection
-
-<style>
-    .card {
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .badge {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 0.25rem;
-    }
-
-    .badge.bg-warning {
-        background-color: #ffc107;
-    }
-
-    .badge.bg-info {
-        background-color: #17a2b8;
-    }
-
-    .badge.bg-success {
-        background-color: #28a745;
-    }
-
-    .badge.bg-secondary {
-        background-color: #6c757d;
-    }
-</style>
-    

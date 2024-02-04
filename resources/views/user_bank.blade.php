@@ -3,7 +3,6 @@
 <?php
 $page = 'Transaksi Bank';
 ?>
-
 @section('content')
     <div class="container mt-4">
         @if (session('status'))

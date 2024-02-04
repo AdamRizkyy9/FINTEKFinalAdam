@@ -80,6 +80,9 @@ $page = 'Transaksi Kantin';
                                             @break
                                         @default
                                     @endswitch
+                                    <p><strong>Date:</strong> {{ $transaksi->created_at->format('d/m/Y H:i:s') }}</p>
+                                </span>
+                            </p>
                                 </p>
                             </div>
                             <table class="table">

@@ -426,4 +426,6 @@ Route::delete("/delete-keranjang/{id}", function ($id) {
     return redirect()->back()->with("status", "Berhasil Menghapus Keranjang");
 })->name("keranjang.delete");
 
-    
+
+
+
