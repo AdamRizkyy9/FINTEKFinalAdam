@@ -125,11 +125,11 @@ Route::prefix('menu')->group(function () {
     })->name("menu.delete");
 });
 
-Route::get("topup", function () {
-    $saldo = Saldo::where("user_id", Auth::user()->id)->first();
+    Route::get("topup", function () {
+        $saldo = Saldo::where("user_id", Auth::user()->id)->first();
 
-    return view("topup", [
-        "saldo" => $saldo
+        return view("topup", [
+            "saldo" => $saldo
     ]);
 })->name("topup");
 
@@ -391,3 +391,39 @@ Route::prefix('transaksi_bank')->group(function () {
     }) ->name("transaksi_bank");
 
 });
+
+Route::prefix('user_kantin')->group(function () {
+    Route::get("/", function () {
+
+        $transaksis = Transaksi::where("user_id", (Auth::user()->id))
+        ->where('type', 2)->get();
+        $details = Transaksi::where("type", 2)
+            ->get();
+
+        return view("user_kantin", [
+            "transaksis" => $transaksis,
+            "details" => $details,
+        ]);
+    })->name("user_kantin");
+});
+Route::prefix('user_bank')->group(function () {
+    Route::get("/", function () {
+
+        $transaksis = Transaksi::where("user_id", (Auth::user()->id))
+        ->where('type', 1)->get();
+        $details = Transaksi::where("type", 1)
+            ->get();
+
+        return view("user_bank", [
+            "transaksis" => $transaksis,
+            "details" => $details,
+        ]);
+    })->name("user_bank");
+});
+Route::delete("/delete-keranjang/{id}", function ($id) {
+    Transaksi::find($id)->delete();
+
+    return redirect()->back()->with("status", "Berhasil Menghapus Keranjang");
+})->name("keranjang.delete");
+
+    

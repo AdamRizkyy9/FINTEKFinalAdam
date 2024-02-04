@@ -16,7 +16,7 @@
                 <div class="container">
                     <img src="{{ asset('assets/images/logo.png')}}" alt="" width="40" height="30">
                     <a class="navbar-brand">
-                    AdamFinTech
+                    damFinTech
                     </a>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
@@ -45,7 +45,7 @@
             <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2>Login.</h2>
-                        <p>Input Your E-mail and Password.</p>
+                        <p>Masukkan Akun anda.</p>
                     </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -89,7 +89,7 @@
                                         {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        {{ __('Ingatkan saya') }}
                                     </label>
                                 </div>
                             </div>
@@ -100,18 +100,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}"
-                                        style="color: black">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
-
+                    </p>
                         <div class="row">
-                        <small>Don't have Account? <a href="{{ route('register')}}">Sign Up</a></small>
+                        <small>Belum memiliki Akun? <a href="{{ route('register')}}">Sign Up</a></small>
                         </div>
                     </form>
             </div>

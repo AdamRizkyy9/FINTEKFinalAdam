@@ -24,7 +24,7 @@ $page = 'Top Up';
                             <form method="POST" action="{{ route('transaksi.create') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="jumlah">Amount:</label>
+                                    <label for="jumlah">Jumlah:</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp.</span>

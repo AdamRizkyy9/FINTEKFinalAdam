@@ -14,7 +14,7 @@ $page = 'Transaksi Bank';
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header" style="background-color: #8DA0F5">
+                    <div class="card-header" style="background-color: #011367">
                         <div class="row">
                             <div class="col" style="font-weight: bold; color: white">
                                 Transaksi

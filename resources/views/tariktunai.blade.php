@@ -9,7 +9,7 @@ $page ='Tarik Tunai';
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card" style="border-radius: 20px">
-                    <div class="card-header" style="background-color: #10d1f3; border-radius: 10px">Withdraw</div>
+                    <div class="card-header" style="background-color: #10d1f3; border-radius: 10px">Tarik Tunai</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -22,8 +22,8 @@ $page ='Tarik Tunai';
                         <form method="POST" action="{{ route('transaksi.tariktunai') }}">
                             @csrf
                             <div class="form-group mt-4">
-                                <label>Amount:</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Nominal Input">
+                                <label>Jumlah:</label>
+                                <input type="number" name="jumlah" class="form-control" placeholder="Nominal">
                                 <input type="hidden" name="type" value="1">
                             </div>
                             <button class="btn btn-primary mt-5" type="submit">Tarik Tunai</button>

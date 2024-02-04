@@ -34,7 +34,7 @@
         }
 
         .dropdown-menu {
-            background-color: #17515ff8;
+            background-color: #170502f8;
         }
 
         .dropdown-menu .dropdown-item {
@@ -67,7 +67,7 @@
             <div class="container">
                 <img src="{{ asset('assets/images/logo.png')}}" alt="" width="40" height="30">
                 <a class="navbar-brand">
-                AdamFinTech
+                damFinTech
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -79,6 +79,14 @@
                                     <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('home') }}">Home</a>
                                 </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $page == 'Data Transaksi' ? 'active' : '' }}" aria-current="page"
+                                            href="{{ route('user_kantin') }}">Riwayat Kantin</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $page == 'Data Transaksi' ? 'active' : '' }}" aria-current="page"
+                                            href="{{ route('user_bank') }}">Riwayat Bank</a>
+                                    </li>
                             @endif
                             @if (Auth::user()->role_id === 2)
                                 <li class="nav-item">
@@ -91,13 +99,17 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ $page == 'Data Transaksi' ? 'active' : '' }}" aria-current="page"
-                                        href="{{ route('data_transaksi') }}">Transaction Dashboard</a>
+                                        href="{{ route('data_transaksi') }}">Riwayat Transaksi</a>
                                 </li>
                             @endif
                             @if (Auth::user()->role_id === 1)
                                 <li class="nav-item">
                                     <a class="nav-link {{ $page == 'Home' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $page == 'Transaksi Bank' ? 'active' : '' }}" aria-current="page"
+                                        href="{{ route('transaksi_bank') }}">Transaksi</a>
                                 </li>
                             @endif
                         @endauth

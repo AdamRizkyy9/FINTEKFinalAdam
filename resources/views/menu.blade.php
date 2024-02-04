@@ -14,7 +14,7 @@ $page = 'Menu';
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header" style="background-color: #97bbe2; font-weight: bold" >
+                    <div class="card-header" style="background-color: #011367; font-weight: bold" >
                         <div class="row">
                             <div class="col" style="color: white" >
                                 Menu

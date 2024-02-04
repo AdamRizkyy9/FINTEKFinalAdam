@@ -5,116 +5,122 @@ $page = 'Home';
 ?>
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h2 class="font-weight-bold">Welcome to Your Dashboard</h2>
-                    </div>
+<div class="container" style="margin-top: -50px;">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10">
+            <div class="card border-6 shadow-lg">
+                <div class="card-header text-white text-center" style="background-color: #0C2D57">
+                    <h2 class="font-weight-bold">Selamat Datang Di Dashboard</h2>
+                </div>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
+                    @if (Auth::user()->role_id === 3)
+                        <div class="row justify-content-center mt-10">
+                            <div class="col-md-4">
+                                <div class="card border-5 text-center p-3" style="background-color: #f9cb61;">
+                                    <h5 class="font-weight-bold mb-4">Top Up</h5>
+                                    <p class="mb-3">Silahkan Top-Up dengan mengKlik button di bawah ini.</p>
+                                    <a href="{{ route('topup') }}" class="btn btn-dark btn-sm">Top Up</a>
+                                </div>
+                            </p>
                             </div>
-                        @endif
-
-                        @if (Auth::user()->role_id === 3)
-                            <div class="row mt-4">
-                                <div class="col-md-4">
-                                    <div class="card bg-warning text-white text-center p-3">
-                                        <h5 class="font-weight-bold">Top Up</h5>
-                                        <p>Silahkan Top-Up dengan mengKlik button dibawah ini.</p>
-                                        <a href="{{ route('topup') }}" class="btn btn-dark btn-sm">Top Up Now</a>
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="card border-5 text-center p-3" style="background-color: #80f0d8;">
+                                    <h5 class="font-weight-bold mb-3">Kantin 64</h5>
+                                    <p class="mb-3">Jajan lewat online aja jadi gak ribet! tidak perlu pakai sekarang!</p>
+                                    <a href="{{ route('transaksi') }}" class="btn btn-dark btn-sm">Jajan</a>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="card bg-success text-white text-center p-3">
-                                        <h5 class="font-weight-bold">Canteen 64</h5>
-                                        <p>Bayar Jajan lewat online aja jadi gak ribet! tidak perlu pakai antri lagi buat
-                                            bayar.</p>
-                                        <a href="{{ route('transaksi') }}" class="btn btn-dark btn-sm">Explore</a>
-                                    </div>
+                            </div>
+                            <p>
+                            <div class="col-md-4">
+                                <div class="card border-5 text-center p-3" style="background-color: #69b7f6;">
+                                    <h5 class="font-weight-bold mb-3">Tarik Tunai</h5>
+                                    <p class="mb-3">Ambil uang anda disini. Tidak perlu ribet ke ATM</p>
+                                    <a href="{{ route('tariktunai') }}" class="btn btn-dark btn-sm">Tarik</a>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="card bg-info text-dark text-center p-3">
-                                        <h5 class="font-weight-bold">Withdraw</h5>
-                                        <p>Ambil uang anda disini. Tidak perlu ribet ke ATM !</p>
-                                        <a href="{{ route('tariktunai') }}" class="btn btn-dark btn-sm">Withdraw Now</a>
-                                    </div>
-                        @endif
-
-                        @if (Auth::user()->role_id === 1)
-                    </div>
-                    <div class="card col"
-                        style="width: 100px; height: 100px; align-items:center; justify-content:center; margin:5px; background-color: #0e3991">
-                        <a href="{{ route('transaksi_bank') }}"
-                            style="color: white;text-decoration:none;font-size:18px">Transaction</a>
+                            </div>
+                        </div>
+                    @endif
+                            @if (Auth::user()->role_id === 1)
                     </div>
                     @endif
+
                     @if (Auth::user()->role_id === 3)
                     @endif
+
                     @if (Auth::user()->role_id === 1)
-                        <table class="table table-bordered border-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Nominal</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pengajuans as $key => $pengajuan)
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="font-weight-bold">Bank Transaksi</h3>
+                            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped mt-2">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $pengajuan->user->name }}</td>
-                                        <td>{{ $pengajuan->jumlah }}</td>
-                                        <td>
-                                            <a href="{{ route('topup.setuju', ['transaksi_id' => $pengajuan->id]) }}"
-                                                class="btn btn-primary">
-                                                Accept
-                                            </a>
-                                            <a href="{{ route('topup.tolak', ['transaksi_id' => $pengajuan->id]) }}"
-                                                class="btn btn-danger">
-                                                Decline
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('tariktunai.setuju', ['transaksi_id' => $pengajuan->id]) }}"
-                                                class="btn btn-primary">
-                                                Accept
-                                            </a>
-                                            <a href="{{ route('tariktunai.tolak', ['transaksi_id' => $pengajuan->id]) }}"
-                                                class="btn btn-danger">
-                                                Decline
-                                            </a>
-                                        </td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Nominal</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                </div>
+                                </thead>
+                                <tbody>
+                @foreach ($pengajuans as $key => $pengajuan)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $pengajuan->user->name }}</td>
+                    <td>{{ $pengajuan->jumlah }}</td>
+                    <td>@if (Str::startsWith($pengajuan->invoice_id,  'SAL_'))
+                        Topup
+                        @elseif (Str::startsWith($pengajuan->invoice_id,  'TRK_'))
+                        Tarik Tunai
+                    @endif</td>
+                    <td>
+                        @if (Str::startsWith($pengajuan->invoice_id,  'SAL_'))
+                        <a href="{{ route('topup.setuju', ['transaksi_id' => $pengajuan->id]) }}" class="btn btn-primary">
+                            Setujui
+                        </a>
+                        <a href="{{ route('topup.tolak', ['transaksi_id' => $pengajuan->id]) }}" class="btn btn-danger">
+                            Tolak
+                        </a>
+
+                        @elseif (Str::startsWith($pengajuan->invoice_id, 'TRK_'))
+                        <a href="{{ route('tariktunai.setuju', ['transaksi_id' => $pengajuan->id]) }}" class="btn btn-primary">
+                            Setujui
+                        </a>
+                        <a href="{{ route('tariktunai.tolak', ['transaksi_id' => $pengajuan->id]) }}" class="btn btn-danger">
+                            Tolak
+                        </a>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
                 @endif
                 @if (Auth::user()->role_id === 2)
-                    <table class="table table-bordered border-dark table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                                {{-- <th>Nominal</th> --}}
-                                <th>Invoice ID</th>
-                                <th>Status</th>
-                                <th>Detail</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($jajan_by_invoices as $key => $jajan_by_invoice)
+                    <div class="card mt-2">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="font-weight-bold">Transaksi Kantin</h3>
+                            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped mt-3">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Nominal</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                             @foreach ($jajan_by_invoices as $key => $jajan_by_invoice)
                                 @if ($jajan_by_invoice->status == 2 || $jajan_by_invoice->status == 3)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
@@ -184,8 +190,7 @@ $page = 'Home';
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
+
                                             @if ($jajan_by_invoice->status == 3)
                                                 <a href="{{ route('jajan.setuju', ['invoice_id' => $jajan_by_invoice->invoice_id]) }}"
                                                     class="btn btn-primary">
@@ -218,3 +223,4 @@ $page = 'Home';
     </div>
     </div>
 @endsection
+
